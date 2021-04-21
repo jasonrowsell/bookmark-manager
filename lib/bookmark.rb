@@ -5,11 +5,13 @@ require 'pg'
 # Bookmark model interacting with DB
 class Bookmark
   def self.all
-    if ENV['ENVIRONMENT'] == 'test'
-      connection = PG.connect(dbname: 'bookmark_manager_test')
-    else
-      connection = PG.connect(dbname: 'bookmark_manager')
-    end
+    db = if ENV['RACK_ENV'] == 'test'
+           'bookmark_manager_test'
+         else
+           'bookmark_manager'
+         end
+
+    connection = PG.connect(dbname: db)
 
     result = connection.exec('SELECT * FROM bookmarks')
     result.map do |bookmark|
@@ -17,17 +19,19 @@ class Bookmark
         id: bookmark['id'],
         title: bookmark['title'],
         url: bookmark['url']
-        )
+      )
     end
   end
 
   def self.create(url:, title:)
-    if ENV['ENVIRONMENT'] == 'test'
-      connection = PG.connect(dbname: 'bookmark_manager_test')
-    else
-      connection = PG.connect(dbname: 'bookmark_manager')
-    end
-  
+    db = if ENV['RACK_ENV'] == 'test'
+           'bookmark_manager_test'
+         else
+           'bookmark_manager'
+         end
+
+    connection = PG.connect(dbname: db)
+
     result = connection.exec(
       "INSERT INTO bookmarks (url, title)
       VALUES('#{url}', '#{title}')
