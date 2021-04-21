@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pg'
 
 def setup_test_database

@@ -1,17 +1,26 @@
+# frozen_string_literal: true
+
 require 'pg'
 
 feature 'Viewing bookmarks' do
   scenario 'when visiting index route' do
-    connection = PG.connect(dbname: 'bookmark_manager_test')
-
-    connection.exec("INSERT INTO bookmarks (url) VALUES('https://www.window-swap.com/');")
-    connection.exec("INSERT INTO bookmarks (url) VALUES('https://isitchristmas.com/');")
-    connection.exec("INSERT INTO bookmarks (url) VALUES('https://zombo.com/');")
+    Bookmark.create(
+      url: 'https://www.window-swap.com',
+      title: 'Window Swap'
+    )
+    Bookmark.create(
+      url: 'https://www.isitchristmas.com',
+      title: 'Is It Christmas'
+    )
+    Bookmark.create(
+      url: 'https://www.zombo.com',
+      title: 'Zombo Time'
+    )
 
     visit('/bookmarks')
 
-    expect(page).to have_content 'https://www.window-swap.com/'
-    expect(page).to have_content 'https://isitchristmas.com/'
-    expect(page).to have_content 'https://zombo.com/'
+    expect(page).to have_link('Window Swap')
+    expect(page).to have_link('Is It Christmas')
+    expect(page).to have_link('Zombo Time')
   end
 end
