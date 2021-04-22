@@ -46,7 +46,7 @@ class Bookmark
   def self.delete(id:)
     begin
       connection = PG.connect(dbname: "bookmark_manager_#{ENV['RACK_ENV']}")
-      connection.exec("DELETE FROM bookmarks WHERE id = #{id}")
+      connection.exec("DELETE FROM bookmarks WHERE id=#{id}")
     rescue PG::Error => e
       puts e.message
     ensure
