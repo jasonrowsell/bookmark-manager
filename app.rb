@@ -4,6 +4,8 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require './lib/bookmark'
 
+ENV['RACK_ENV'] ||= 'development'
+
 # Organizes and manages URL bookmarks
 class BookmarkManager < Sinatra::Base
   enable :sessions, :method_override
@@ -26,8 +28,8 @@ class BookmarkManager < Sinatra::Base
     redirect '/bookmarks'
   end
 
-  delete '/bookmarks/:id' do
-    Bookmark.delete(id: params[:id])
+  delete '/bookmarks' do
+    Bookmark.delete(id: params[:id].to_i)
     redirect '/bookmarks'
   end
 

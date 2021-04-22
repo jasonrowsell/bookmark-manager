@@ -3,6 +3,12 @@
 require 'pg'
 
 def setup_test_database
-  connection = PG.connect(dbname: 'bookmark_manager_test')
-  connection.exec('TRUNCATE TABLE bookmarks;')
+  begin
+    connection = PG.connect(dbname: "bookmark_manager_#{ENV['RACK_ENV']}")
+    connection.exec('TRUNCATE TABLE bookmarks;')
+  rescue PG::Error => e
+    puts e.message
+  ensure
+    connection.close if connection
+  end
 end
