@@ -35,9 +35,23 @@ I would like to add the site's address and title to bookmark manager
 
 ![Diagram](./images/diagram2.png)
 
+### Story
+
+```
+As a user
+So that I can maintain my stored bookmarks
+I want to delete a bookmark
+```
+
+### Domain Model
+
+| Nouns    | Verbs  |
+| -------- | ------ |
+| bookmark | delete |
+
 ### Class Diagrams
 
-| Class      | Bookmarks     |
-| ---------- | ------------- |
-| Attributes | bookmark_list |
-| Methods    | display, add  |
+| Class      | Bookmarks            |
+| ---------- | -------------------- |
+| Attributes | bookmark_list        |
+| Methods    | display, add, delete |

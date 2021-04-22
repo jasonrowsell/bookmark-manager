@@ -48,4 +48,17 @@ describe Bookmark do
       end
     end
   end
+
+  describe '.delete' do
+    it 'deletes selected bookmark' do
+      bookmark = Bookmark.create(
+        title: 'Zombo Time',
+        url: 'http://www.zombo.com'
+      )
+  
+      Bookmark.delete(id: bookmark.id)
+  
+      expect(Bookmark.all.size).to eq 0
+    end
+  end
 end
