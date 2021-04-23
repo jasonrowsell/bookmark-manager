@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'bookmark'
+require 'db_connection'
 
 describe Bookmark do
   let(:subject) { described_class.new }
